@@ -1,20 +1,23 @@
 name: WorldBorderExpander
-version: 1.0.0
+version: 2.0.0
 main: com.worldborderexpander.WorldBorderExpander
 api-version: 1.21
-description: Allows players to purchase world border expansions using XP levels.
+description: Dynamic world border — grows daily, shrinks on death, expandable with XP.
 author: YourName
 
 commands:
   bordershop:
-    description: Open the World Border Shop GUI.
-    usage: /bordershop [reload]
+    description: Open the World Border XP shop.
+    usage: /bordershop
     aliases: [bs, borderbuy]
+  border:
+    description: Admin commands for WorldBorderExpander.
+    usage: /border <status|reload|reset|set|growth|penalty|afk>
 
 permissions:
-  worldborderexpander.use:
-    description: Allows a player to open and use the border shop.
+  wbe.use:
+    description: Open and use the border XP shop.
     default: true
-  worldborderexpander.reload:
-    description: Allows a player to reload the plugin config.
+  wbe.admin:
+    description: Access all /border admin commands.
     default: op

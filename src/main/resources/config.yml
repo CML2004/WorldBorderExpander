@@ -1,77 +1,159 @@
-# ──────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════
 # WorldBorderExpander — config.yml
-# ──────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════
 
-# The name of the world whose border will be expanded.
+# Target world
 world: world
 
-# The absolute maximum the border can ever reach (in blocks, diameter).
-# Purchases that would exceed this are blocked.
+# Border size when the plugin first initializes (only applied if border is at Minecraft default)
+starting-size: 100
+
+# Hard maximum the border can ever reach
 max-border-size: 10000
 
-# Message broadcast to all players when the border is expanded.
+# Message broadcast when a player expands via XP shop
 # Variables: {player}, {size}, {expansion}, {tier}
-# Set to "" to disable broadcasting.
 broadcast-message: "§6[Border] §e{player} §7expanded the world border to §f{size} §7blocks!"
 
-# ──────────────────────────────────────────────────────────
-# GUI Settings
-# ──────────────────────────────────────────────────────────
+# ── Auto Growth ────────────────────────────────────────────
+auto-growth:
+  enabled: true
+
+  # Blocks added to the border diameter each in-game day (every 20 real minutes)
+  blocks-per-day: 1
+
+  # Stop growing if no players are online
+  pause-when-empty: true
+
+  # Stop growing if every online player is AFK
+  pause-when-all-afk: true
+
+  # Message broadcast when the border auto-grows. Set to "" to disable.
+  # Variables: {growth}, {size}
+  announce-message: "§6[Border] §7A new day dawns! The border grew by §b+{growth} §7blocks to §f{size}§7."
+
+# ── AFK Detection ──────────────────────────────────────────
+afk:
+  # Minutes a player must stay in the same position before being considered AFK
+  minutes-until-afk: 5
+
+# ── XP Shop GUI ────────────────────────────────────────────
 gui:
-  # Title shown at the top of the shop inventory.
   title: "§8⚙ §6World Border Shop"
-
-  # Number of rows in the shop inventory (1–6).
-  # 3 rows gives 7 interior slots for tier items.
   rows: 3
-
-  # If true, a confirmation screen appears before spending XP.
   confirm-purchase: true
 
-# ──────────────────────────────────────────────────────────
-# Expansion Tiers
-# ──────────────────────────────────────────────────────────
-# Each tier defines a purchasable expansion option.
-#
-# Fields:
-#   name          - Display name shown in the GUI (supports color codes)
-#   xp-cost       - XP levels required (deducted on purchase)
-#   expansion-blocks - How many blocks the border diameter grows
-#   icon          - Material name for the item icon (must be a valid Bukkit Material)
-#   description   - Short lore description shown in the GUI
-# ──────────────────────────────────────────────────────────
+# ── Shop Tiers ─────────────────────────────────────────────
 tiers:
   small:
     name: "Small Expansion"
     xp-cost: 5
-    expansion-blocks: 50
+    expansion-blocks: 10
     icon: OAK_SAPLING
     description: "A modest push outward."
 
   medium:
     name: "Medium Expansion"
     xp-cost: 15
-    expansion-blocks: 150
+    expansion-blocks: 25
     icon: OAK_LOG
     description: "Room for a new settlement."
 
   large:
     name: "Large Expansion"
     xp-cost: 30
-    expansion-blocks: 300
+    expansion-blocks: 50
     icon: OAK_PLANKS
     description: "Serious territory growth."
 
   epic:
     name: "Epic Expansion"
     xp-cost: 50
-    expansion-blocks: 500
+    expansion-blocks: 100
     icon: DIAMOND
     description: "A vast new frontier opens."
 
   legendary:
     name: "Legendary Expansion"
     xp-cost: 100
-    expansion-blocks: 1000
+    expansion-blocks: 200
     icon: NETHERITE_INGOT
     description: "The border yields to legend."
+
+# ══════════════════════════════════════════════════════════
+# Penalties — shrink the border when bad things happen
+# Variables in messages: {player}, {amount}, {size}
+# ══════════════════════════════════════════════════════════
+penalties:
+
+  # ── Death types ──────────────────────────────────────────
+  death.fall:
+    enabled: true
+    blocks: 2
+    message: "§c☠ {player} fell to their death! Border shrunk by {amount} blocks."
+
+  death.drowning:
+    enabled: true
+    blocks: 2
+    message: "§c☠ {player} drowned! Border shrunk by {amount} blocks."
+
+  death.lava:
+    enabled: true
+    blocks: 5
+    message: "§c☠ {player} melted in lava! Border shrunk by {amount} blocks."
+
+  death.fire:
+    enabled: true
+    blocks: 3
+    message: "§c☠ {player} burned to death! Border shrunk by {amount} blocks."
+
+  death.mob:
+    enabled: true
+    blocks: 3
+    message: "§c☠ {player} was slain by a mob! Border shrunk by {amount} blocks."
+
+  death.pvp:
+    enabled: true
+    blocks: 5
+    message: "§c☠ {player} was killed in PvP! Border shrunk by {amount} blocks."
+
+  death.void:
+    enabled: true
+    blocks: 10
+    message: "§c☠ {player} fell into the void! Border shrunk by {amount} blocks."
+
+  death.magic:
+    enabled: true
+    blocks: 3
+    message: "§c☠ {player} was killed by magic! Border shrunk by {amount} blocks."
+
+  death.wither:
+    enabled: true
+    blocks: 5
+    message: "§c☠ {player} withered away! Border shrunk by {amount} blocks."
+
+  death.lightning:
+    enabled: true
+    blocks: 4
+    message: "§c☠ {player} was struck by lightning! Border shrunk by {amount} blocks."
+
+  death.explosion:
+    enabled: true
+    blocks: 4
+    message: "§c☠ {player} blew up! Border shrunk by {amount} blocks."
+
+  death.starvation:
+    enabled: true
+    blocks: 2
+    message: "§c☠ {player} starved to death! Border shrunk by {amount} blocks."
+
+  death.other:
+    enabled: true
+    blocks: 2
+    message: "§c☠ {player} died! Border shrunk by {amount} blocks."
+
+  # ── World change ─────────────────────────────────────────
+  leave-overworld:
+    enabled: true
+    blocks: 5
+    message: "§c⚠ {player} left the overworld! Border shrunk by {amount} blocks."
