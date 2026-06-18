@@ -1,0 +1,77 @@
+# ──────────────────────────────────────────────────────────
+# WorldBorderExpander — config.yml
+# ──────────────────────────────────────────────────────────
+
+# The name of the world whose border will be expanded.
+world: world
+
+# The absolute maximum the border can ever reach (in blocks, diameter).
+# Purchases that would exceed this are blocked.
+max-border-size: 10000
+
+# Message broadcast to all players when the border is expanded.
+# Variables: {player}, {size}, {expansion}, {tier}
+# Set to "" to disable broadcasting.
+broadcast-message: "§6[Border] §e{player} §7expanded the world border to §f{size} §7blocks!"
+
+# ──────────────────────────────────────────────────────────
+# GUI Settings
+# ──────────────────────────────────────────────────────────
+gui:
+  # Title shown at the top of the shop inventory.
+  title: "§8⚙ §6World Border Shop"
+
+  # Number of rows in the shop inventory (1–6).
+  # 3 rows gives 7 interior slots for tier items.
+  rows: 3
+
+  # If true, a confirmation screen appears before spending XP.
+  confirm-purchase: true
+
+# ──────────────────────────────────────────────────────────
+# Expansion Tiers
+# ──────────────────────────────────────────────────────────
+# Each tier defines a purchasable expansion option.
+#
+# Fields:
+#   name          - Display name shown in the GUI (supports color codes)
+#   xp-cost       - XP levels required (deducted on purchase)
+#   expansion-blocks - How many blocks the border diameter grows
+#   icon          - Material name for the item icon (must be a valid Bukkit Material)
+#   description   - Short lore description shown in the GUI
+# ──────────────────────────────────────────────────────────
+tiers:
+  small:
+    name: "Small Expansion"
+    xp-cost: 5
+    expansion-blocks: 50
+    icon: OAK_SAPLING
+    description: "A modest push outward."
+
+  medium:
+    name: "Medium Expansion"
+    xp-cost: 15
+    expansion-blocks: 150
+    icon: OAK_LOG
+    description: "Room for a new settlement."
+
+  large:
+    name: "Large Expansion"
+    xp-cost: 30
+    expansion-blocks: 300
+    icon: OAK_PLANKS
+    description: "Serious territory growth."
+
+  epic:
+    name: "Epic Expansion"
+    xp-cost: 50
+    expansion-blocks: 500
+    icon: DIAMOND
+    description: "A vast new frontier opens."
+
+  legendary:
+    name: "Legendary Expansion"
+    xp-cost: 100
+    expansion-blocks: 1000
+    icon: NETHERITE_INGOT
+    description: "The border yields to legend."
