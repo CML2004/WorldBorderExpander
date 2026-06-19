@@ -1,0 +1,17 @@
+com\worldborderexpander\BorderCommand.class
+com\worldborderexpander\PenaltyListener$1.class
+com\worldborderexpander\ChallengeManager.class
+com\worldborderexpander\AfkListener$1.class
+com\worldborderexpander\BorderGrowthTask$1.class
+com\worldborderexpander\ChallengeManager$ChallengeType.class
+com\worldborderexpander\ExpansionTier.class
+com\worldborderexpander\BorderShopGUI.class
+com\worldborderexpander\AfkManager.class
+com\worldborderexpander\BorderGrowthTask.class
+com\worldborderexpander\PenaltyListener.class
+com\worldborderexpander\WorldBorderExpander.class
+com\worldborderexpander\BorderConfig.class
+com\worldborderexpander\GUIListener.class
+com\worldborderexpander\AfkListener.class
+com\worldborderexpander\ChallengeManager$ChallengeInstance.class
+com\worldborderexpander\ChallengeManager$1.class

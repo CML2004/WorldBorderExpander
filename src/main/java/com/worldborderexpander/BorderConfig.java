@@ -23,7 +23,16 @@ public class BorderConfig {
     public boolean isPauseWhenEmpty() { return cfg().getBoolean("auto-growth.pause-when-empty", true); }
     public boolean isPauseWhenAllAfk() { return cfg().getBoolean("auto-growth.pause-when-all-afk", true); }
 
-    public int getAfkMinutes() { return cfg().getInt("afk.minutes-until-afk", 5); }
+    public int getAfkMinutes() {
+        if (cfg().contains("activity.afk-timeout-minutes")) {
+            return cfg().getInt("activity.afk-timeout-minutes", 5);
+        }
+        return cfg().getInt("afk.minutes-until-afk", 5);
+    }
+
+    public boolean isRequireActivePlayers() {
+        return cfg().getBoolean("activity.require-active-players", true);
+    }
 
     public String getGuiTitle() { return cfg().getString("gui.title", "§8⚙ §6World Border Shop"); }
     public int getGuiRows() { return Math.max(1, Math.min(6, cfg().getInt("gui.rows", 3))); }

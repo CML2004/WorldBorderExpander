@@ -32,13 +32,12 @@ public class PenaltyListener implements Listener {
             case DROWNING -> "death.drowning";
             case LAVA -> "death.lava";
             case FIRE, FIRE_TICK -> "death.fire";
-            case ENTITY_ATTACK, ENTITY_SWEEP_ATTACK -> "death.mob";
-            case PLAYER -> "death.pvp";
+            case ENTITY_ATTACK, ENTITY_SWEEP_ATTACK, PROJECTILE -> player.getKiller() != null ? "death.pvp" : "death.mob";
             case VOID -> "death.void";
             case MAGIC -> "death.magic";
             case WITHER -> "death.wither";
             case LIGHTNING -> "death.lightning";
-            case EXPLOSION -> "death.explosion";
+            case BLOCK_EXPLOSION, ENTITY_EXPLOSION -> "death.explosion";
             case STARVATION -> "death.starvation";
             default -> "death.other";
         };
@@ -71,11 +70,9 @@ public class PenaltyListener implements Listener {
         WorldBorder border = world.getWorldBorder();
         double current = border.getSize();
         double amount = cfg.getPenaltyAmount(key);
-        double newSize = Math.max(cfg.getStartingSize(), current - amount);
+        double newSize = plugin.shrinkBorderSafely(world, amount);
 
         if (newSize >= current) return;
-
-        border.setSize(newSize);
 
         String msg = cfg.getPenaltyMessage(key)
             .replace("{player}", playerName)

@@ -19,7 +19,7 @@ A Spigot plugin for **Minecraft 1.21** that gives players a GUI shop to spend XP
 ## Installation
 
 1. Build with Maven: `mvn clean package`
-2. Copy `target/WorldBorderExpander-1.0.0.jar` into your server's `plugins/` folder
+2. Copy `target/WorldBorderExpander-2.0.0.jar` into your server's `plugins/` folder
 3. Start or reload the server — `plugins/WorldBorderExpander/config.yml` is generated
 4. Set your world's border to a small starting size (the plugin only expands, never sets)
 5. Run `/bordershop` in-game
@@ -30,10 +30,11 @@ A Spigot plugin for **Minecraft 1.21** that gives players a GUI shop to spend XP
 
 | Command | Description | Permission |
 |---|---|---|
-| `/bordershop` | Open the border shop GUI | `worldborderexpander.use` |
-| `/bordershop reload` | Reload config.yml | `worldborderexpander.reload` |
+| `/bordershop` | Open the border shop GUI | `wbe.use` |
+| `/bordershop reload` | Reload config.yml | `wbe.admin` |
+| `/borderchallenge` | View and participate in border challenges | `true` |
 
-**Aliases:** `/bs`, `/borderbuy`
+**Aliases:** `/bs`, `/borderbuy`, `/bc`, `/challenge`
 
 ---
 
@@ -41,8 +42,8 @@ A Spigot plugin for **Minecraft 1.21** that gives players a GUI shop to spend XP
 
 | Permission | Default | Description |
 |---|---|---|
-| `worldborderexpander.use` | `true` (all players) | Open and use the shop |
-| `worldborderexpander.reload` | `op` | Reload the config |
+| `wbe.use` | `true` (all players) | Open and use the shop |
+| `wbe.admin` | `op` | Reload config and use admin commands |
 
 ---
 

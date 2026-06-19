@@ -35,6 +35,11 @@ public class BorderCommand implements CommandExecutor {
             return true;
         }
 
+        // /borderchallenge — view the current challenge or contribute XP
+        if (command.getName().equalsIgnoreCase("borderchallenge")) {
+            return handleChallengeCommand(sender, args);
+        }
+
         // /border <subcommand> — admin commands
         if (args.length == 0) {
             sendHelp(sender);
@@ -207,9 +212,50 @@ public class BorderCommand implements CommandExecutor {
         return true;
     }
 
+    private boolean handleChallengeCommand(CommandSender sender, String[] args) {
+        var manager = plugin.getChallengeManager();
+        if (args.length == 0) {
+            manager.sendStatus(sender);
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("pay")) {
+            if (!(sender instanceof Player player)) {
+                sender.sendMessage("§cOnly players can contribute XP.");
+                return true;
+            }
+            if (args.length < 2) {
+                sender.sendMessage("§cUsage: /borderchallenge pay <amount|all>");
+                return true;
+            }
+            String amountArg = args[1];
+            int amount;
+            if (amountArg.equalsIgnoreCase("all")) {
+                amount = player.getLevel();
+            } else {
+                double val = parseDouble(sender, amountArg);
+                if (val < 0) return true;
+                amount = (int) val;
+            }
+            manager.contributeXp(player, amount);
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage("§6§l── Border Challenge Commands ────");
+            sender.sendMessage("§e/borderchallenge §7— View the current challenge");
+            sender.sendMessage("§e/borderchallenge pay <amount|all> §7— Contribute XP to a pay-XP challenge");
+            return true;
+        }
+
+        sender.sendMessage("§cUnknown borderchallenge command. Use /borderchallenge or /borderchallenge help.");
+        return true;
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6§l── WorldBorderExpander Commands ────");
         sender.sendMessage("§e/bordershop §7— Open the XP shop");
+        sender.sendMessage("§e/borderchallenge §7— View the current border challenge");
         sender.sendMessage("§e/border status §7— View current border info");
         sender.sendMessage("§e/border reload §7— Reload config");
         sender.sendMessage("§e/border reset §7— Reset border to starting size");
